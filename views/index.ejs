@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= title %></title>
+	<meta charset="utf-8">
+	<!-- ..................................Bootsrap 4 CDN links............................... -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<style type="text/css">
+	
+	.from{
+		max-width: 500px;
+		border-radius: 10px;
+		/* margin: 4%; */
+		padding: 6%;
+	}
+</style>
+<div class="back-img">
+<div class="container" >
+	<div class="row">
+		<div class="col-3"></div>
+		<div class="col-6">
+
+			<div class="shadow from bg-white" style="margin-top: 10%;" >
+				<center><h3>Registration Form</h3>
+				<% if(msg!='')
+				{%>
+					<h4 class="text-info"><%= msg %></h4>
+				<%}%>
+				</center>
+
+				<!-- < ...................................User Resgistration Form.................. -->
+				<form autocomplete="off" action="/" method="post">
+					<div class="form-group">
+						<label>Enter Email</label>
+						<input type="email" name="email" placeholder="Enter Your Email.." class="form-control" required="" autocomplete="off">
+					</div>
+					<div class="form-group">
+						<label>Enter Name</label>
+						<input type="text" name="user" placeholder="Enter Your Name.." class="form-control" required="" autocomplete="off">
+					</div>
+					<div class="form-group">
+						<label>Enter Password</label>
+						<input type="Password" name="pass" placeholder="Enter Your pass.." class="form-control" required="" autocomplete="off">
+					</div>
+					<center><input type="submit" name="submit" value="Submit" class="btn btn-info" style="width: 250px;"></center>
+        </form>
+        <br>
+        <p>if you have already an account <a href="/login"> Login</a></p>
+			</div>
+		</div>
+		<div class="col-3"></div>
+	</div>
+
+</div>
+</div>
+</body>
+</html>

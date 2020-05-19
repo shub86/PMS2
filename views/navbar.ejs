@@ -1,0 +1,47 @@
+<nav class="navbar navbar-dark  navbar-expand-md nav-color ">
+    <div class="container">
+    <button data-toggle="collapse" data-target="#navbarToggler" type="button"
+            class="navbar-toggler"><span class="navbar-toggler-icon"><img src="image/icon.png"></span>
+       
+    </button>
+    <div class="collapse navbar-collapse" id="navbarToggler">
+         <ul class=" navbar-nav  text-center " style="font-size: 16px;">
+              <li class="nav-item ">
+            <a href="/userDash" class="nav-link ">Home</a></li>
+        <li class="nav-item ">
+            <a href="/passwordCategory" class="nav-link tooltip1" title="Click here for add New Category and View Category"> Password Category</a>
+            <ul class=" navbar-nav ml-auto text-center shadow bg-white" style="z-index: 4;">
+                   
+                <li class="nav-item">
+                    <a href="/NewCategory" class="nav-link tooltip1 " title="Click for ! Add New Category">Add New Category</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/passwordCategory" class="nav-link tooltip1 " title="Click for !  View All Category">View All Category</a>
+                </li>
+            </ul>
+        </li>
+     <li class="nav-item ">
+           <a href="#" class="nav-link tooltip1 " title="Click here for Add New Password Detials and view Stroed details">Password Detials</a>
+           <ul class=" navbar-nav ml-auto text-center shadow bg-white" style="z-index: 4;">
+                   
+            <li class="nav-item">
+                <a href="/NewDetails" class="nav-link tooltip1 " title="Click here for add new password Details" >Add New Password Details </a>
+            </li>
+            <li class="nav-item">
+                <a href="/passwordDetails" class="nav-link  tooltip1" title="Click here for View Stored password Details">View All Details</a>
+            </li>
+        </ul>
+        </li>
+    
+        
+            <li class="nav-item ">
+            <a href="/logout" class="nav-link ">Log out</a></li>
+    </ul>
+    <div style="float: right;" class="navbar-header ml-auto"><a href="#" class="navbar-brand text-dark">Loggedin  As<%if(msg){%> <%= msg %> <%}%>
+    
+    </a>
+
+    </div>
+    </div>
+    </div>
+</nav>

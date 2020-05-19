@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <%- include('header.ejs') %>
+    </head>
+
+    <body>
+        <%- include('navbar.ejs') %>
+        <br>
+<h1><%= title %></h1>
+       
+        <div class="container" >
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-6">
+        
+                    <div class="shadow from bg-white" style="margin-top: 10%;" >
+                        <center><h3>Add New Category</h3></center>
+                        <% if(success!=''){%>
+                            <h4 class="text-info"><%= success %></h4>
+                            <%}%>
+                        <!-- < ...................................User Resgistration Form.................. -->
+                        <form autocomplete="off" action="/NewCategory" method="post">
+                            <div class="form-group">
+                                <label>Enter Category Name</label>
+                                <input type="text" name="newCat" placeholder="Enter New Category.." class="form-control" required="" autocomplete="off">
+                            </div>
+                            
+                            <center><input type="submit" name="submit" value="Submit" class="btn btn-info" style="width: 250px;"></center>
+                </form>
+                <br>
+                <p> <a href="/passwordCategory"> Viewa all Category</a></p>
+                    </div>
+                </div>
+                <div class="col-3"></div>
+            </div>
+        
+        </div>
+        <script>
+            $(document).ready(function() {
+                $('.tooltip1').tooltipster({
+                    theme: 'tooltipster-punk',
+                    animation: 'fade',
+                      delay: 200,
+                    arrow: "speech bubble"
+                    
+                });
+            });
+        </script>
+    </body>
+</html>
