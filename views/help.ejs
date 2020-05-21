@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <%- include('header.ejs') %>
+    </head>
+
+    <body>
+        <style>
+            p{
+                font-size: 17px;
+            }
+        </style>
+        <%- include('navbar.ejs') %>
+        <br>
+       <div class="container" style="margin-top: 4%;">
+        <h2>Please Follow the Steps</h2>
+        
+        <p>The password is represent the on which platform you have an acoount <b>ex: Category name is Godaddy , Gmail etc.</b></p>
+    <p>You have view the category which is Created by other user but you can't change any in those category <b> You can change only those category details which you have Created.</b></p>
+    <br>   
+    <p><b>STEP 1</b>.First Create a New Category click on password category and in the dropdown list click on add new category</p>
+    <div>
+        <img src="images/step1.jpg" width="" height=""  class="img-fluid" />
+    </div>   
+    <p><b>STEP 2.</b> Now click on password detail and Add your password details.</p>
+    <div>
+        <img src="images/step2.jpg" width="" height=""  class="img-fluid" />
+    </div>
+    </div>
+        <script>
+            $(document).ready(function() {
+                $('.tooltip1').tooltipster({
+                    theme: 'tooltipster-punk',
+                    animation: 'fade',
+                      delay: 200,
+                    arrow: "speech bubble"
+                    
+                });
+            });
+        </script>
+        <%- include('footer.ejs') %>
+    </body>
+</html>

@@ -18,6 +18,9 @@
                         <% if(success!=''){%>
                             <h4 class="text-info"><%= success %></h4>
                             <%}%>
+                            <% if(faild!=''){%>
+                                <h4 class="text-danger"><%= faild %></h4>
+                                <%}%>
                         <!-- < ...................................User Resgistration Form.................. -->
                         <form autocomplete="off" action="/NewCategory" method="post">
                             <div class="form-group">
@@ -35,6 +38,7 @@
             </div>
         
         </div>
+        <%- include('footer.ejs') %>
         <script>
             $(document).ready(function() {
                 $('.tooltip1').tooltipster({
