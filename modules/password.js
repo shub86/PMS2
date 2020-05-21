@@ -1,5 +1,5 @@
 var mongos= require('mongoose');
-mongos.connect('mongodb://localhost:27017/pms', {useNewUrlParser: true});
+mongos.connect('mongodb://admin:shub%40123@172.30.32.234:27017/sampledb', {useNewUrlParser: true});
 var con = mongos.connection;
 mongos.set('useCreateIndex', true);
 var password_Schema= new mongos.Schema({
