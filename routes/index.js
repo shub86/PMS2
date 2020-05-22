@@ -167,7 +167,7 @@ router.get('/NewCategory', checkUserLogin, function (req, res, next) {
 router.post('/NewCategory', checkUserLogin, function (req, res, next) {
   var user = req.session.userName;
   var NewCat = req.body.newCat;
-  var cateCheck = getCategory.find({ CategoryName: NewCat });
+  var cateCheck = getCategory.findOne({ CategoryName: NewCat });
   cateCheck.exec(function(err, data) {
     if (err) throw err;
     if (data) {
@@ -182,7 +182,7 @@ router.post('/NewCategory', checkUserLogin, function (req, res, next) {
       });
       categoryDetail.save(function(err, res1){
         if (err) throw err;
-        res.render('NewCategory', { title: 'Add New password category', msg: user, success: 'Category Added Successfully ' });
+        res.render('NewCategory', { title: 'Add New password category', msg: user, success: 'Category Added Successfully ' ,faild:''});
       });
     }
   });
