@@ -153,7 +153,9 @@ router.get('/logout', checkUserLogin, function (req, res, next) {
     if (err) {
       res.redirect('login');
     }
+   
   });
+  res.redirect('login');
 
 });
 // The route for add new category  get mehtod
