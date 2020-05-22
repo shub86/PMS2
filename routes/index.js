@@ -37,8 +37,8 @@ function checkUserLogin(req, res, next) {
 function checkEmail(req, res, next) {
   var email = req.body.email;
   var userEmail = userModel.findOne({ email: email })
-  userEmail.exec((err, data) => {
-    if (err) throw err;
+  userEmail.exec(function(err, data)  {
+    // if (err) throw err;
     if (data) {
       return res.render('index', { title: 'Express', msg: 'The Email is already Registered' });
     }
@@ -51,7 +51,7 @@ function checkUserName(req, res, next) {
 
   var user = req.body.user;
   var userEmail = userModel.findOne({ userName: user })
-  userEmail.exec((err, data) => {
+  userEmail.exec(function(err, data) {
     if (err) throw err;
     if (data) {
       return res.render('index', { title: 'Express', msg: 'The user Name is already Registered' });
@@ -91,7 +91,7 @@ router.post('/', checkEmail, checkUserName, function (req, res, next) {
     email: Email,
     password: newPass,
   });
-  userDetails.save((err, res1) => {
+  userDetails.save(function(err, res1) {
     if (err) throw err;
     res.render('index', { title: 'Express', msg: 'You have  Successfuly Register Please Login !' });
   });
@@ -113,7 +113,7 @@ router.post('/login', function (req, res, next) {
   var password = req.body.pass;
   // find and match user name in data base
   var CheckUser = userModel.findOne({ userName: userName });
-  CheckUser.exec((err, data) => {
+  CheckUser.exec(function(err, data)  {
     if (err) throw err;
     var getPass = data.password;
     var getUserId = data._id;
@@ -139,7 +139,7 @@ router.post('/login', function (req, res, next) {
 router.get('/userDash', checkUserLogin, function (req, res, next) {
   var user = req.session.userName;
   var getUserPassDetail = passwordModel.countDocuments({ userName: user });
-  getUserPassDetail.exec((err, count) => {
+  getUserPassDetail.exec(function(err, count) {
     categoryModel.countDocuments({}).exec((err, countCate) => {
       res.render('userDash', { title: 'All password Details', title2: 'All Category Details ', record: count, msg: user, record2: countCate });
 
@@ -166,7 +166,7 @@ router.post('/NewCategory', checkUserLogin, function (req, res, next) {
   var user = req.session.userName;
   var NewCat = req.body.newCat;
   var cateCheck = getCategory.find({ CategoryName: NewCat });
-  cateCheck.exec((err, data) => {
+  cateCheck.exec(function(err, data) {
     if (err) throw err;
     if (data) {
 
@@ -178,7 +178,7 @@ router.post('/NewCategory', checkUserLogin, function (req, res, next) {
         CategoryName: NewCat,
         userName: user,
       });
-      categoryDetail.save((err, res1) => {
+      categoryDetail.save(function(err, res1){
         if (err) throw err;
         res.render('NewCategory', { title: 'Add New password category', msg: user, success: 'Category Added Successfully ' });
       });
@@ -189,9 +189,9 @@ router.post('/NewCategory', checkUserLogin, function (req, res, next) {
 router.get('/passwordCategory', checkUserLogin, function (req, res, next) {
   var user = req.session.userName;
   var getCategoryUser = categoryModel.find({ userName: user })
-  getCategory.exec((err, data) => {
+  getCategory.exec(function(err, data) {
     if (err) throw err;
-    getCategoryUser.exec((err, data1) => {
+    getCategoryUser.exec(function(err, data1)  {
       if (err) throw err;
       res.render('passwordCategory', { title: 'Category you have created', msg: user, record: data, record1: data1, delMsg: '', editMsg: '' });
 
@@ -207,9 +207,9 @@ router.get('/deleteCate/:id', checkUserLogin, function (req, res, next) {
 
   var deletCate = categoryModel.findByIdAndDelete(id);
 
-  deletCate.exec((err, res1) => {
+  deletCate.exec(function(err, res1)  {
     if (err) throw err;
-    getCategory.exec((err, data) => {
+    getCategory.exec(function(err, data) {
       if (err) throw err;
       res.render('passwordCategory', { title: 'All password category', msg: user, editMsg: '', record: data, delMsg: 'Deleted Successfully' });
     });
@@ -222,7 +222,7 @@ router.get('/updateCate/:id', checkUserLogin, function (req, res, next) {
   var id = req.params.id;
 
   var updateCate = categoryModel.findById(id);
-  updateCate.exec((err, data) => {
+  updateCate.exec(function(err, data) {
     if (err) throw err;
     if (data) {
       res.render('updateCate', { title: 'All password category', msg: user, record: data, editMsg: '' });
@@ -241,9 +241,9 @@ router.post('/updateCate', checkUserLogin, function (req, res, next) {
     CategoryName: editCate,
   });
 
-  newCate.exec((err, res1) => {
+  newCate.exec(function(err, res1) {
     if (err) throw err;
-    getCategory.exec((err, data) => {
+    getCategory.exec(function(err, data) {
       if (err) throw err;
       res.render('passwordCategory', { title: 'All password category', msg: user, record: data, delMsg: '', editMsg: 'Category Updated Successfully' });
     });
@@ -261,7 +261,7 @@ router.get('/passwordDetails', checkUserLogin, function (req, res, next) {
   // fetch data from database for panigation
   var getUserPassDetail = passwordModel.find({ userName: user }).skip((perPage * page) - perPage)
     .limit(perPage);
-  getUserPassDetail.exec((err, data) => {
+  getUserPassDetail.exec(function(err, data)  {
     if (err) throw err;
     data.forEach(function (row) {
       // create a array and store the decrepted value in array
@@ -288,7 +288,7 @@ router.get('/passwordDetails/:page', checkUserLogin, function (req, res, next) {
   var page = req.params.page || 1;
   var getUserPassDetail = passwordModel.find({ userName: user }).skip((perPage * page) - perPage)
     .limit(perPage);
-  getUserPassDetail.exec((err, data) => {
+  getUserPassDetail.exec(function(err, data) {
     if (err) throw err;
     data.forEach(function (row) {
 
@@ -311,7 +311,7 @@ router.get('/passwordDetails/:page', checkUserLogin, function (req, res, next) {
 // the route for add New password details
 router.get('/NewDetails', checkUserLogin, function (req, res, next) {
   var user = req.session.userName;
-  getCategory.exec((err, data) => {
+  getCategory.exec(function(err, data){
     if (err) throw err;
     res.render('NewDetails', { title: 'Add New password Details', msg: user, record: data, success: '' });
   });
@@ -338,9 +338,9 @@ router.post('/NewDetails', checkUserLogin, function (req, res, next) {
     passwordDetail: EncriptPass,
   });
 
-  NewPassDetail.save((err, res1) => {
+  NewPassDetail.save(function(err, res1) {
     if (err) throw err;
-    getCategory.exec((err, data) => {
+    getCategory.exec(function(err, data)  {
       if (err) throw err;
       res.render('NewDetails', { title: 'Add New password Details', msg: user, record: data, success: 'Password Inserted Successfully' });
     });
@@ -360,9 +360,9 @@ router.get('/deletePass/:id', checkUserLogin, function (req, res, next) {
   // find details 
   var getUserPassDetail = passwordModel.find({ userName: user }).skip((perPage * page) - perPage)
     .limit(perPage);
-  deletPass.exec((err, res1) => {
+  deletPass.exec(function(err, res1) {
     if (err) throw err;
-    getUserPassDetail.exec((err, data) => {
+    getUserPassDetail.exec(function(err, data) {
       if (err) throw err;
       data.forEach(function (row) {
         // create a array and store the decrepted value in array
@@ -392,7 +392,7 @@ router.get('/editPass/:id', checkUserLogin, function (req, res, next) {
   var perPage = 3;
   var page = 1;
   var editPass = passwordModel.findById(id);
-  editPass.exec((err, data1) => {
+  editPass.exec(function(err, data1) {
     if (err) throw err;
 
     // create a array and store the decrepted value in array
@@ -400,7 +400,7 @@ router.get('/editPass/:id', checkUserLogin, function (req, res, next) {
     dec = crypto.createDecipher("aes-256-ctr", key).update(data1.passwordDetail, "hex", "utf-8");
 
 
-    getCategory.exec((err, data) => {
+    getCategory.exec(function(err, data) {
       if (err) throw err;
       res.render('editPass', { title: 'All password Details', msg: user, record: data, record1: data1, DcrptPass: dec, success: '' });
     });
@@ -431,10 +431,10 @@ router.post('/editPass', checkUserLogin, function (req, res, next) {
     passwordDetail: EncriptPass,
   });
   // update pass details
-  NewEditPass.exec((err, res1) => {
+  NewEditPass.exec(function(err, res1) {
     if (err) throw err;
     // fetch stored details
-    getUserPassDetail.exec((err, data) => {
+    getUserPassDetail.exec(function(err, data) {
       if (err) throw err;
       data.forEach(function (row) {
         // create a array and store the decrepted value in array
