@@ -11,6 +11,7 @@ var category_Schema= new mongos.Schema({
         required:true,
         index:{
             unique:true,
+             }
         },
         userName:{
         type:String,
@@ -21,7 +22,7 @@ var category_Schema= new mongos.Schema({
             type:Date,
              default: Date.now,
         }
-    }
+    
 });
 
 var Category_Model=mongos.model('category',category_Schema);
