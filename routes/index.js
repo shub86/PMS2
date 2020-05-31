@@ -36,7 +36,7 @@ function checkUserLogin(req, res, next) {
 // this is a middleware funtion for check Email
 function checkEmail(req, res, next) {
   var email = req.body.email;
-  var userEmail = userModel.findOne({ email: email })
+  var userEmail = userModel.findOne({ email: email });
   userEmail.exec(function(err, data)  {
     // if (err) throw err;
     if (data) {
@@ -190,10 +190,11 @@ router.post('/NewCategory', checkUserLogin, function (req, res, next) {
 // The route for  view all category  get mehtod
 router.get('/passwordCategory', checkUserLogin, function (req, res, next) {
   var user = req.session.userName;
-  var getCategoryUser = categoryModel.find({ userName: user })
+  var getCategorybyUser = categoryModel.find({userName: user});
+  
   getCategory.exec(function(err, data) {
     if (err) throw err;
-    getCategoryUser.exec(function(err, data1)  {
+  getCategorybyUser.exec(function(err, data1)  {
       if (err) throw err;
       res.render('passwordCategory', { title: 'Category you have created', msg: user, record: data, record1: data1, delMsg: '', editMsg: '' });
 
