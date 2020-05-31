@@ -208,15 +208,17 @@ router.get('/deleteCate/:id', checkUserLogin, function (req, res, next) {
   var id = req.params.id;
 
   var deletCate = categoryModel.findByIdAndDelete(id);
-
+var getCategoryUser = categoryModel.find({ userName: user });
   deletCate.exec(function(err, res1)  {
     if (err) throw err;
-    getCategory.exec(function(err, data) {
+       getCategoryUser.exec(function(err, data1)  {
       if (err) throw err;
-      res.render('passwordCategory', { title: 'All password category', msg: user, editMsg: '', record: data, delMsg: 'Deleted Successfully' });
+        getCategory.exec(function(err, data) {
+       if (err) throw err;
+      res.render('passwordCategory', { title: 'Category you have created', msg: user, editMsg: '', record1: data1, record: data, delMsg: 'Deleted Successfully' });
     });
   });
-
+  });
 });
 // The route for add update category  get mehtod
 router.get('/updateCate/:id', checkUserLogin, function (req, res, next) {
@@ -238,19 +240,21 @@ router.post('/updateCate', checkUserLogin, function (req, res, next) {
   var user = req.session.userName;
   var id = req.body.id;
   var editCate = req.body.newCate;
-
+var getCategoryUser = categoryModel.find({ userName: user });
   var newCate = categoryModel.findByIdAndUpdate(id, {
     CategoryName: editCate,
   });
 
   newCate.exec(function(err, res1) {
     if (err) throw err;
-    getCategory.exec(function(err, data) {
+      getCategoryUser.exec(function(err, data1)  {
       if (err) throw err;
-      res.render('passwordCategory', { title: 'All password category', msg: user, record: data, delMsg: '', editMsg: 'Category Updated Successfully' });
+         getCategory.exec(function(err, data) {
+      if (err) throw err;
+      res.render('passwordCategory', { title: 'Category you have created', msg: user, record: data, record1:data1,delMsg: '', editMsg: 'Category Updated Successfully' });
     });
   });
-
+  });
 });
 // the route for view all password details
 router.get('/passwordDetails', checkUserLogin, function (req, res, next) {
