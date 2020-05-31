@@ -36,7 +36,7 @@ function checkUserLogin(req, res, next) {
 // this is a middleware funtion for check Email
 function checkEmail(req, res, next) {
   var email = req.body.email;
-  var userEmail = userModel.findOne({ email: email });
+  var userEmail = userModel.findOne({ email: email })
   userEmail.exec(function(err, data)  {
     // if (err) throw err;
     if (data) {
@@ -182,7 +182,7 @@ router.post('/NewCategory', checkUserLogin, function (req, res, next) {
       });
       categoryDetail.save(function(err, res1){
         if (err) throw err;
-        res.render('NewCategory', { title: 'Add New password category', msg: user, success: 'Category Added Successfully ' ,faild:''});
+        res.render('NewCategory', { title: 'Add New password category', msg: user, success: 'Category Added Successfully ',faild:'' });
       });
     }
   });
@@ -191,11 +191,13 @@ router.post('/NewCategory', checkUserLogin, function (req, res, next) {
 router.get('/passwordCategory', checkUserLogin, function (req, res, next) {
   var user = req.session.userName;
   var getCategoryUser = categoryModel.find({ userName: user });
-  getCategory.exec(function(err, allCate) {
-    if (err) throw err;
-       getCategoryUser.exec(function(err, data1)  {
+  var getAllCategory = categoryModel.find({});
+    getCategoryUser.exec(function(err, data1)  {
+      console.log(data1);
       if (err) throw err;
-      res.render('passwordCategory', { title: 'Category you have created', msg: user, record: allCate, record1: data1, delMsg: '', editMsg: '' });
+      getAllCategory.exec(function(err, data) {
+        if (err) throw err;
+      res.render('passwordCategory', { title: 'Category you have created', msg: user, recordData: data, record1: data1, delMsg: '', editMsg: '' });
 
     });
 
@@ -208,17 +210,20 @@ router.get('/deleteCate/:id', checkUserLogin, function (req, res, next) {
   var id = req.params.id;
 
   var deletCate = categoryModel.findByIdAndDelete(id);
-var getCategoryUser = categoryModel.find({ userName: user });
+    
   deletCate.exec(function(err, res1)  {
     if (err) throw err;
-       getCategoryUser.exec(function(err, data1)  {
+    var getCategoryUser = categoryModel.find({ userName: user });
+
+    getCategory.exec(function(err, data) {
       if (err) throw err;
-        getCategory.exec(function(err, allCate) {
-       if (err) throw err;
-      res.render('passwordCategory', { title: 'Category you have created', msg: user, editMsg: '', record1: data1, record: allCate, delMsg: 'Deleted Successfully' });
+      getCategoryUser.exec(function(err, data1)  {
+        if (err) throw err;
+      res.render('passwordCategory', { title: 'All password category', msg: user, editMsg: '',record1:data1, recordData: data, delMsg: 'Deleted Successfully' });
     });
   });
   });
+
 });
 // The route for add update category  get mehtod
 router.get('/updateCate/:id', checkUserLogin, function (req, res, next) {
@@ -240,21 +245,23 @@ router.post('/updateCate', checkUserLogin, function (req, res, next) {
   var user = req.session.userName;
   var id = req.body.id;
   var editCate = req.body.newCate;
-var getCategoryUser = categoryModel.find({ userName: user });
+
   var newCate = categoryModel.findByIdAndUpdate(id, {
     CategoryName: editCate,
   });
 
   newCate.exec(function(err, res1) {
     if (err) throw err;
+    var getCategoryUser = categoryModel.find({ userName: user });
+    getCategory.exec(function(err, data) {
+      if (err) throw err;
       getCategoryUser.exec(function(err, data1)  {
-      if (err) throw err;
-         getCategory.exec(function(err, allCate) {
-      if (err) throw err;
-      res.render('passwordCategory', { title: 'Category you have created', msg: user, record: allCate, record1: data1, delMsg: '', editMsg: 'Category Updated Successfully' });
+        if (err) throw err;
+      res.render('passwordCategory', { title: 'All password category', msg: user, record1:data1,recordData: data, delMsg: '', editMsg: 'Category Updated Successfully' });
     });
   });
   });
+
 });
 // the route for view all password details
 router.get('/passwordDetails', checkUserLogin, function (req, res, next) {
