@@ -191,11 +191,11 @@ router.post('/NewCategory', checkUserLogin, function (req, res, next) {
 router.get('/passwordCategory', checkUserLogin, function (req, res, next) {
   var user = req.session.userName;
   var getCategoryUser = categoryModel.find({ userName: user });
-  getCategory.exec(function(err, data) {
+  getCategory.exec(function(err, allCate) {
     if (err) throw err;
        getCategoryUser.exec(function(err, data1)  {
       if (err) throw err;
-      res.render('passwordCategory', { title: 'Category you have created', msg: user, record: data, record1: data1, delMsg: '', editMsg: '' });
+      res.render('passwordCategory', { title: 'Category you have created', msg: user, record: allCate, record1: data1, delMsg: '', editMsg: '' });
 
     });
 
@@ -213,9 +213,9 @@ var getCategoryUser = categoryModel.find({ userName: user });
     if (err) throw err;
        getCategoryUser.exec(function(err, data1)  {
       if (err) throw err;
-        getCategory.exec(function(err, data) {
+        getCategory.exec(function(err, allCate) {
        if (err) throw err;
-      res.render('passwordCategory', { title: 'Category you have created', msg: user, editMsg: '', record1: data1, record: data, delMsg: 'Deleted Successfully' });
+      res.render('passwordCategory', { title: 'Category you have created', msg: user, editMsg: '', record1: data1, record: allCate, delMsg: 'Deleted Successfully' });
     });
   });
   });
@@ -249,9 +249,9 @@ var getCategoryUser = categoryModel.find({ userName: user });
     if (err) throw err;
       getCategoryUser.exec(function(err, data1)  {
       if (err) throw err;
-         getCategory.exec(function(err, data) {
+         getCategory.exec(function(err, allCate) {
       if (err) throw err;
-      res.render('passwordCategory', { title: 'Category you have created', msg: user, record: data, record1:data1,delMsg: '', editMsg: 'Category Updated Successfully' });
+      res.render('passwordCategory', { title: 'Category you have created', msg: user, record: allCate, record1: data1, delMsg: '', editMsg: 'Category Updated Successfully' });
     });
   });
   });
