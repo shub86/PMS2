@@ -324,8 +324,9 @@ router.get('/passwordDetails/:page', checkUserLogin, function (req, res, next) {
 // the route for add New password details
 router.get('/NewDetails', checkUserLogin, function (req, res, next) {
   var user = req.session.userName;
-  getCategory.exec(function(err, data){
-    if (err) throw err;
+  var getCategoryData = categoryModel.find({});
+  getCategoryData.exec(function(err, data){
+        if (err) throw err;
     res.render('NewDetails', { title: 'Add New password Details', msg: user, record: data, success: '' });
   });
 
